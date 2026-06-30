@@ -7,7 +7,10 @@ export const getSettingsQuery = groq`
     teatroPrices,
     arenaPrices,
     phoneNumber,
-    email
+    email,
+    cinemaHours,
+    teatroHours,
+    arenaHours
   }
 `;
 

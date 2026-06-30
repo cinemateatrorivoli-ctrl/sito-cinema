@@ -27,6 +27,15 @@ export default async function MapSection() {
   const settings = await client.fetch(getSettingsQuery);
   const phoneNumber = settings?.phoneNumber || "0923 941021";
 
+  // Associamo dinamicamente gli orari alle sedi in base ai dati di Sanity
+  const locationsWithHours = locations.map(loc => {
+    let hours = "In aggiornamento";
+    if (loc.id === "cinema") hours = settings?.cinemaHours || hours;
+    if (loc.id === "teatro") hours = settings?.teatroHours || hours;
+    if (loc.id === "arena") hours = settings?.arenaHours || hours;
+    return { ...loc, hours };
+  });
+
   return (
     <section id="contatti" className="py-24 bg-black border-t border-zinc-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -54,11 +63,11 @@ export default async function MapSection() {
 
         {/* Griglia delle Mappe (3 Colonne) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {locations.map((loc) => (
-            <div key={loc.id} className="bg-zinc-950 border border-zinc-800 rounded-2xl overflow-hidden group hover:border-zinc-700 transition-colors">
+          {locationsWithHours.map((loc) => (
+            <div key={loc.id} className="bg-zinc-950 border border-zinc-800 rounded-2xl overflow-hidden group hover:border-zinc-700 transition-colors flex flex-col">
 
               {/* Info Sede */}
-              <div className="p-6">
+              <div className="p-6 grow">
                 <h3 className="font-heading text-2xl font-bold text-white mb-3 flex items-center justify-between">
                   {loc.title}
                   <a
@@ -71,14 +80,22 @@ export default async function MapSection() {
                     <ExternalLink className="h-5 w-5" />
                   </a>
                 </h3>
-                <div className="flex items-start gap-2 text-zinc-400 text-sm">
-                  <MapPin className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
-                  <span>{loc.address}</span>
+                <div className="flex flex-col gap-3 text-zinc-400 text-sm mt-4">
+                  <div className="flex items-start gap-2">
+                    <MapPin className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+                    <span>{loc.address}</span>
+                  </div>
+                  <div className="flex items-start gap-2 border-t border-zinc-900 pt-3 mt-1">
+                    <div className="w-5 h-5 flex items-center justify-center shrink-0">
+                      <span className="text-red-500 font-bold text-lg">🕒</span>
+                    </div>
+                    <span><strong className="text-zinc-300">Orari:</strong> {loc.hours}</span>
+                  </div>
                 </div>
               </div>
 
               {/* Mappa */}
-              <div className="relative h-[250px] w-full border-t border-zinc-900">
+              <div className="relative h-[250px] w-full border-t border-zinc-900 mt-auto">
                 <iframe
                   src={loc.mapUrl}
                   width="100%"

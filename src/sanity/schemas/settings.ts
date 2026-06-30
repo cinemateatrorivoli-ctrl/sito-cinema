@@ -64,5 +64,20 @@ export default defineType({
       title: 'Indirizzo Email',
       type: 'string',
     }),
+    defineField({
+      name: 'cinemaHours',
+      title: 'Orari di Apertura Cinema',
+      type: 'string',
+    }),
+    defineField({
+      name: 'teatroHours',
+      title: 'Orari di Apertura Teatro',
+      type: 'string',
+    }),
+    defineField({
+      name: 'arenaHours',
+      title: 'Orari di Apertura Arena',
+      type: 'string',
+    }),
   ],
 })
