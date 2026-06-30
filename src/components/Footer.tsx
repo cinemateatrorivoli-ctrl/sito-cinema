@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { MapPin, Phone, Clock } from "lucide-react";
+import { client } from "@/sanity/lib/client";
+import { getSettingsQuery } from "@/sanity/lib/queries";
 
 const FacebookIcon = ({ className }: { className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -15,7 +17,13 @@ const InstagramIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export default function Footer() {
+export default async function Footer() {
+  const settings = await client.fetch(getSettingsQuery);
+  const phoneNumber = settings?.phoneNumber || "0923 941021";
+  const cinemaHours = settings?.cinemaHours || "In aggiornamento";
+  const teatroHours = settings?.teatroHours || "In aggiornamento";
+  const arenaHours = settings?.arenaHours || "In aggiornamento";
+
   return (
     <footer className="bg-zinc-950 border-t border-white/10 text-gray-400 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -49,8 +57,8 @@ export default function Footer() {
               </li>
               <li className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-red-600 shrink-0" />
-                <a href="tel:+390923941021" className="hover:text-white transition-colors">
-                  0923 941021
+                <a href={`tel:${phoneNumber.replace(/\s+/g, '')}`} className="hover:text-white transition-colors">
+                  {phoneNumber}
                 </a>
               </li>
               <li>
@@ -66,21 +74,21 @@ export default function Footer() {
                 <Clock className="h-5 w-5 text-red-600 shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-white block">Cinema</strong>
-                  <span>Lun-Dom: 16:30 - 24:00</span>
+                  <span>{cinemaHours}</span>
                 </div>
               </li>
               <li className="flex items-start space-x-3">
                 <Clock className="h-5 w-5 text-red-600 shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-white block">Teatro</strong>
-                  <span>Nei giorni di spettacolo</span>
+                  <span>{teatroHours}</span>
                 </div>
               </li>
               <li className="flex items-start space-x-3">
                 <Clock className="h-5 w-5 text-red-600 shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-white block">Arena</strong>
-                  <span>Giu-Set: 20:30 - 01:00</span>
+                  <span>{arenaHours}</span>
                 </div>
               </li>
             </ul>
