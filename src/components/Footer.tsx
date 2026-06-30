@@ -30,8 +30,8 @@ export default async function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
 
           <div className="col-span-1">
-            <Link href="/" className="font-heading text-2xl font-bold tracking-tighter text-white inline-block mb-4">
-              CINEMA<span className="text-red-600">RIVOLI</span>
+            <Link href="/" className="inline-block mb-6 hover:opacity-80 transition-opacity">
+              <img src="/logo_white.png" alt="Cinema Rivoli" className="h-10 w-auto object-contain" />
             </Link>
             <p className="mb-4 max-w-sm">
               Il tuo multisala di fiducia. Cinema, teatro e arena in un unico luogo, per regalarti emozioni tutto l'anno.

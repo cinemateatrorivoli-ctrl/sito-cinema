@@ -23,8 +23,8 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="shrink-0">
-            <Link href="/" className="font-heading text-2xl font-bold tracking-tighter hover:text-gray-300 transition-colors">
-              CINEMA<span className="text-red-600">RIVOLI</span>
+            <Link href="/" className="shrink-0 flex items-center hover:opacity-80 transition-opacity">
+              <img src="/logo_white.png" alt="Cinema Rivoli" className="h-8 md:h-10 w-auto object-contain" />
             </Link>
           </div>
           <div className="hidden md:block">
