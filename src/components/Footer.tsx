@@ -37,14 +37,18 @@ export default async function Footer() {
               Il tuo multisala di fiducia. Cinema, teatro e arena in un unico luogo, per regalarti emozioni tutto l'anno.
             </p>
             <div className="flex space-x-6">
-              <a href="https://www.facebook.com/cineteatrorivoli/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#1877F2] transition-colors">
-                <span className="sr-only">Facebook</span>
-                <FacebookIcon className="h-6 w-6" />
-              </a>
-              <a href="https://www.instagram.com/cineteatrorivoli/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#E1306C] transition-colors">
-                <span className="sr-only">Instagram</span>
-                <InstagramIcon className="h-6 w-6" />
-              </a>
+              {settings?.facebookUrl && (
+                <a href={settings.facebookUrl} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#1877F2] transition-colors">
+                  <span className="sr-only">Facebook</span>
+                  <FacebookIcon className="h-6 w-6" />
+                </a>
+              )}
+              {settings?.instagramUrl && (
+                <a href={settings.instagramUrl} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#E1306C] transition-colors">
+                  <span className="sr-only">Instagram</span>
+                  <InstagramIcon className="h-6 w-6" />
+                </a>
+              )}
             </div>
           </div>
 

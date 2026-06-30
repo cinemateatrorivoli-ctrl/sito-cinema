@@ -10,7 +10,17 @@ export const getSettingsQuery = groq`
     email,
     cinemaHours,
     teatroHours,
-    arenaHours
+    arenaHours,
+    heroEvent->{
+      title,
+      "slug": slug.current,
+      description,
+      "imageUrl": image.asset->url
+    },
+    facebookUrl,
+    instagramUrl,
+    privacyPolicyText,
+    cookiePolicyText
   }
 `;
 

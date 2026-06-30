@@ -5,18 +5,19 @@ import PricingSection from "@/components/PricingSection";
 import FeaturedEvents from "@/components/FeaturedEvents";
 import MapSection from "@/components/MapSection";
 import { client } from "@/sanity/lib/client";
-import { getAllEventsQuery } from "@/sanity/lib/queries";
+import { getAllEventsQuery, getSettingsQuery } from "@/sanity/lib/queries";
 
 // Disabilitiamo la cache in dev, o usiamo revalidate in prod
 export const revalidate = 60; // Revalidate ogni 60 secondi
 
 export default async function Home() {
   const events = await client.fetch(getAllEventsQuery);
+  const settings = await client.fetch(getSettingsQuery);
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero Section con Carousel */}
-      <HeroCarousel />
+      {/* Hero Section con Carousel (ora accetta heroEvent opzionale) */}
+      <HeroCarousel heroEvent={settings?.heroEvent} />
 
       {/* Sezione In Evidenza (Scorrimento) */}
       <FeaturedEvents events={events} />

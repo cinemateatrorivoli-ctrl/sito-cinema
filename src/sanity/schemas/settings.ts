@@ -79,5 +79,34 @@ export default defineType({
       title: 'Orari di Apertura Arena',
       type: 'string',
     }),
+    defineField({
+      name: 'heroEvent',
+      title: 'Evento in Copertina (Home Page)',
+      type: 'reference',
+      to: [{ type: 'event' }],
+      description: 'Seleziona un evento da mostrare in grande nella Home Page. Se vuoto, verrà mostrato un carosello generico.',
+    }),
+    defineField({
+      name: 'facebookUrl',
+      title: 'Link Pagina Facebook',
+      type: 'url',
+    }),
+    defineField({
+      name: 'instagramUrl',
+      title: 'Link Pagina Instagram',
+      type: 'url',
+    }),
+    defineField({
+      name: 'privacyPolicyText',
+      title: 'Testo Privacy Policy',
+      type: 'array',
+      of: [{ type: 'block' }],
+    }),
+    defineField({
+      name: 'cookiePolicyText',
+      title: 'Testo Cookie Policy',
+      type: 'array',
+      of: [{ type: 'block' }],
+    }),
   ],
 })
