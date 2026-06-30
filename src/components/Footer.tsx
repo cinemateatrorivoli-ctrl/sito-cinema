@@ -65,8 +65,8 @@ export default async function Footer() {
                   {phoneNumber}
                 </a>
               </li>
-              <li>
-                P.IVA 01234567890
+              <li className="text-zinc-400 mt-4">
+                P.IVA {settings?.vatNumber || "01234567890"}
               </li>
             </ul>
           </div>

@@ -60,6 +60,12 @@ export default defineType({
       type: 'string',
     }),
     defineField({
+      name: 'vatNumber',
+      title: 'Partita IVA',
+      type: 'string',
+      description: 'La Partita IVA che apparirà nel piè di pagina del sito.',
+    }),
+    defineField({
       name: 'email',
       title: 'Indirizzo Email',
       type: 'string',

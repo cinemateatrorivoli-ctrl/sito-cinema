@@ -7,6 +7,7 @@ export const getSettingsQuery = groq`
     teatroPrices,
     arenaPrices,
     phoneNumber,
+    vatNumber,
     email,
     cinemaHours,
     teatroHours,
