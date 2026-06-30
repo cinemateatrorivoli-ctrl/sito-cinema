@@ -4,6 +4,28 @@ import { ArrowLeft, Clock, Calendar, Video, Info } from "lucide-react";
 import { client } from "@/sanity/lib/client";
 import { getEventBySlugQuery } from "@/sanity/lib/queries";
 
+import { PortableText } from "next-sanity";
+
+const portableTextComponents = {
+  block: {
+    normal: ({ children }: any) => <p className="mb-4">{children}</p>,
+    h1: ({ children }: any) => <h1 className="text-3xl font-bold text-white mt-8 mb-4">{children}</h1>,
+    h2: ({ children }: any) => <h2 className="text-2xl font-bold text-white mt-8 mb-4">{children}</h2>,
+    h3: ({ children }: any) => <h3 className="text-xl font-bold text-white mt-6 mb-3">{children}</h3>,
+  },
+  list: {
+    bullet: ({ children }: any) => <ul className="list-disc pl-6 mb-6 text-zinc-300">{children}</ul>,
+    number: ({ children }: any) => <ol className="list-decimal pl-6 mb-6 text-zinc-300">{children}</ol>,
+  },
+  listItem: {
+    bullet: ({ children }: any) => <li className="mb-2">{children}</li>,
+    number: ({ children }: any) => <li className="mb-2">{children}</li>,
+  },
+  marks: {
+    strong: ({ children }: any) => <strong className="font-bold text-white">{children}</strong>,
+  },
+};
+
 export const revalidate = 60;
 
 import { Metadata } from 'next';
@@ -130,7 +152,11 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
             <section>
               <h2 className="text-2xl font-bold text-white mb-6 border-b border-zinc-800 pb-4">Trama</h2>
               <div className="prose prose-invert max-w-none text-zinc-300 text-lg leading-relaxed">
-                <p className="whitespace-pre-wrap">{description}</p>
+                {event.plot ? (
+                  <PortableText value={event.plot} components={portableTextComponents} />
+                ) : (
+                  <p className="whitespace-pre-wrap">{event.description || "Nessuna descrizione disponibile al momento."}</p>
+                )}
               </div>
             </section>
 

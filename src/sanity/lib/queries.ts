@@ -70,7 +70,7 @@ export const getEventBySlugQuery = groq`
     category,
     "imageUrl": image.asset->url,
     description,
-    "plot": pt::text(plot),
+    plot,
     showtimes,
     director,
     cast,
