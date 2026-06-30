@@ -108,10 +108,13 @@ export default async function Footer() {
                 <Link href="/cookie-policy" className="hover:text-white transition-colors">Cookie Policy</Link>
               </li>
             </ul>
-            <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-4 h-24 flex items-center justify-center text-xs text-center">
-              {/* Spazio segnaposto loghi bando */}
-              <span className="text-zinc-600">Loghi Obbligatori Bando / Contributi</span>
-            </div>
+            {settings?.sponsorLogos && settings.sponsorLogos.length > 0 ? (
+              <div className="flex flex-wrap items-center justify-center gap-4 bg-zinc-900 border border-zinc-800 rounded-lg p-4">
+                {settings.sponsorLogos.map((logoUrl: string, idx: number) => (
+                  <img key={idx} src={logoUrl} alt="Sponsor Logo" className="max-h-16 object-contain" />
+                ))}
+              </div>
+            ) : null}
           </div>
 
         </div>

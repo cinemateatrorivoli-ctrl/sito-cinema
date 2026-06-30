@@ -20,7 +20,8 @@ export const getSettingsQuery = groq`
     facebookUrl,
     instagramUrl,
     privacyPolicyText,
-    cookiePolicyText
+    cookiePolicyText,
+    "sponsorLogos": sponsorLogos[].asset->url
   }
 `;
 

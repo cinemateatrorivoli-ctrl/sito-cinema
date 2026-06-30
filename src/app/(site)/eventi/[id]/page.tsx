@@ -6,6 +6,37 @@ import { getEventBySlugQuery } from "@/sanity/lib/queries";
 
 export const revalidate = 60;
 
+import { Metadata } from 'next';
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const event = await client.fetch(getEventBySlugQuery, { slug: id });
+
+  if (!event) {
+    return {
+      title: 'Evento non trovato | Cinema Rivoli',
+    };
+  }
+
+  const imageUrl = event.imageUrl || "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=800&auto=format&fit=crop";
+  const description = event.description || "Scopri la programmazione del Cinema Rivoli.";
+
+  return {
+    title: `${event.title} | Cinema Rivoli`,
+    description: description,
+    openGraph: {
+      title: `${event.title} | Cinema Rivoli`,
+      description: description,
+      images: [{ url: imageUrl }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${event.title} | Cinema Rivoli`,
+      description: description,
+      images: [imageUrl],
+    },
+  };
+}
 export default async function EventDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 

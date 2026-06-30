@@ -108,5 +108,12 @@ export default defineType({
       type: 'array',
       of: [{ type: 'block' }],
     }),
+    defineField({
+      name: 'sponsorLogos',
+      title: 'Loghi Bandi / Contributi / Sponsor',
+      type: 'array',
+      of: [{ type: 'image' }],
+      description: 'Aggiungi i loghi degli sponsor o dei bandi da mostrare nel piè di pagina del sito.',
+    }),
   ],
 })
