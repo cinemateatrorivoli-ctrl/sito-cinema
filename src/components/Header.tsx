@@ -23,8 +23,8 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="shrink-0">
-            <Link href="/" className="shrink-0 flex items-center hover:opacity-80 transition-opacity">
-              <img src="/logo_white.png" alt="Cinema Rivoli" className="h-8 md:h-10 w-auto object-contain" />
+            <Link href="/" className="shrink-0 flex items-center hover:opacity-80 transition-opacity py-2">
+              <img src="/logo_white.png" alt="Cinema Rivoli" className="h-12 md:h-16 w-auto object-contain" />
             </Link>
           </div>
           <div className="hidden md:block">
