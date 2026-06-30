@@ -16,8 +16,8 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero Section con Carousel (ora accetta heroEvent opzionale) */}
-      <HeroCarousel heroEvent={settings?.heroEvent} />
+      {/* Hero Section con Carousel (ora accetta heroEvents opzionale) */}
+      <HeroCarousel heroEvents={settings?.heroEvents} />
 
       {/* Sezione In Evidenza (Scorrimento) */}
       <FeaturedEvents events={events} />

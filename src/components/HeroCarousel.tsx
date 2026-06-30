@@ -18,27 +18,41 @@ interface HeroEvent {
   imageUrl: string;
 }
 
-export default function HeroCarousel({ heroEvent }: { heroEvent?: HeroEvent }) {
+export default function HeroCarousel({ heroEvents }: { heroEvents?: HeroEvent[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  const hasHeroEvents = heroEvents && heroEvents.length > 0;
+
   useEffect(() => {
-    if (heroEvent) return; // Non avviare il carosello se c'è un evento in copertina fisso
+    // Se ci sono hero events multipli, cicla tra questi. Altrimenti se non ci sono, cicla sulle immagini di default.
+    // Se c'è un solo hero event, non c'è bisogno di ciclare.
+    const itemsLength = hasHeroEvents ? heroEvents.length : images.length;
+
+    if (itemsLength <= 1) return;
+
     const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % itemsLength);
     }, 5000); // Cambia immagine ogni 5 secondi
 
     return () => clearInterval(timer);
-  }, [heroEvent]);
+  }, [hasHeroEvents, heroEvents?.length]);
 
-  if (heroEvent) {
+  if (hasHeroEvents) {
     return (
       <section className="relative h-[80vh] flex items-center justify-center overflow-hidden bg-black">
         <div className="absolute inset-0 z-0">
-          <img
-            src={heroEvent.imageUrl}
-            alt={heroEvent.title}
-            className="absolute inset-0 w-full h-full object-cover opacity-60"
-          />
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={currentIndex}
+              src={heroEvents[currentIndex].imageUrl}
+              alt={heroEvents[currentIndex].title}
+              className="absolute inset-0 w-full h-full object-cover opacity-60"
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 0.6, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.05 }}
+              transition={{ duration: 1.5, ease: "easeInOut" }}
+            />
+          </AnimatePresence>
           <div className="absolute inset-0 bg-linear-to-b from-black/20 via-black/60 to-black z-10" />
         </div>
 
@@ -46,22 +60,33 @@ export default function HeroCarousel({ heroEvent }: { heroEvent?: HeroEvent }) {
           <div className="inline-block px-4 py-1.5 bg-red-600/90 text-white text-sm font-bold uppercase tracking-widest rounded-full mb-6 backdrop-blur-md">
             In Evidenza
           </div>
-          <h1 className="font-heading text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight leading-tight max-w-4xl">
-            {heroEvent.title}
-          </h1>
-          <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl line-clamp-3">
-            {heroEvent.description}
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center gap-4">
-            <Link
-              href={`/eventi/${heroEvent.slug}`}
-              className="w-full sm:w-auto px-8 py-4 bg-red-600 hover:bg-red-700 text-white rounded-full font-semibold transition-transform hover:scale-105 flex items-center justify-center gap-2"
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+              className="flex flex-col items-center md:items-start text-center md:text-left"
             >
-              <Video className="w-5 h-5" />
-              Scopri di più
-            </Link>
-          </div>
+              <h1 className="font-heading text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight leading-tight max-w-4xl">
+                {heroEvents[currentIndex].title}
+              </h1>
+              <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl line-clamp-3">
+                {heroEvents[currentIndex].description}
+              </p>
+
+              <div className="flex flex-col sm:flex-row items-center gap-4">
+                <Link
+                  href={`/eventi/${heroEvents[currentIndex].slug}`}
+                  className="w-full sm:w-auto px-8 py-4 bg-red-600 hover:bg-red-700 text-white rounded-full font-semibold transition-transform hover:scale-105 flex items-center justify-center gap-2"
+                >
+                  <Video className="w-5 h-5" />
+                  Scopri di più
+                </Link>
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </section>
     );

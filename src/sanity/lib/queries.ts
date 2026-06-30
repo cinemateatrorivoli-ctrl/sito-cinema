@@ -11,7 +11,7 @@ export const getSettingsQuery = groq`
     cinemaHours,
     teatroHours,
     arenaHours,
-    heroEvent->{
+    heroEvents[]->{
       title,
       "slug": slug.current,
       description,

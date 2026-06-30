@@ -80,11 +80,11 @@ export default defineType({
       type: 'string',
     }),
     defineField({
-      name: 'heroEvent',
-      title: 'Evento in Copertina (Home Page)',
-      type: 'reference',
-      to: [{ type: 'event' }],
-      description: 'Seleziona un evento da mostrare in grande nella Home Page. Se vuoto, verrà mostrato un carosello generico.',
+      name: 'heroEvents',
+      title: 'Eventi in Copertina (Home Page)',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'event' }] }],
+      description: 'Seleziona uno o più eventi da mostrare in grande nella Home Page. Verrà creato un carosello automatico. Se vuoto, verrà mostrato un carosello generico.',
     }),
     defineField({
       name: 'facebookUrl',
