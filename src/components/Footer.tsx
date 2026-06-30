@@ -106,9 +106,9 @@ export default function Footer() {
 
         <div className="mt-12 pt-8 border-t border-zinc-900 text-sm flex flex-col md:flex-row justify-between items-center text-zinc-600">
           <p>&copy; {new Date().getFullYear()} Cinema Rivoli. Tutti i diritti riservati.</p>
-          <a href="https://sanity.io/login" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-400 transition-colors mt-4 md:mt-0">
+          <Link href="/studio" className="hover:text-zinc-400 transition-colors mt-4 md:mt-0">
             Area Gestori
-          </a>
+          </Link>
         </div>
       </div>
     </footer>
