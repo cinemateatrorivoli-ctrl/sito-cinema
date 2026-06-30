@@ -9,8 +9,6 @@ export default function StudioLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="it">
-      <body style={{ margin: 0 }}>{children}</body>
-    </html>
+    <div style={{ minHeight: 'calc(100vh - 80px)' }}>{children}</div>
   )
 }
