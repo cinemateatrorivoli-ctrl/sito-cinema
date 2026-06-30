@@ -21,6 +21,7 @@ export const getSettingsQuery = groq`
     instagramUrl,
     privacyPolicyText,
     cookiePolicyText,
+    sponsorText,
     "sponsorLogos": sponsorLogos[].asset->url
   }
 `;

@@ -108,11 +108,18 @@ export default async function Footer() {
                 <Link href="/cookie-policy" className="hover:text-white transition-colors">Cookie Policy</Link>
               </li>
             </ul>
-            {settings?.sponsorLogos && settings.sponsorLogos.length > 0 ? (
-              <div className="flex flex-wrap items-center justify-center gap-4 bg-zinc-900 border border-zinc-800 rounded-lg p-4">
-                {settings.sponsorLogos.map((logoUrl: string, idx: number) => (
-                  <img key={idx} src={logoUrl} alt="Sponsor Logo" className="max-h-16 object-contain" />
-                ))}
+            {(settings?.sponsorLogos && settings.sponsorLogos.length > 0) || settings?.sponsorText ? (
+              <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-4 flex flex-col items-center justify-center gap-4 text-center text-xs text-zinc-400">
+                {settings?.sponsorText && (
+                  <p className="max-w-xs">{settings.sponsorText}</p>
+                )}
+                {settings?.sponsorLogos && settings.sponsorLogos.length > 0 && (
+                  <div className="flex flex-wrap items-center justify-center gap-4">
+                    {settings.sponsorLogos.map((logoUrl: string, idx: number) => (
+                      <img key={idx} src={logoUrl} alt="Sponsor Logo" className="max-h-16 object-contain" />
+                    ))}
+                  </div>
+                )}
               </div>
             ) : null}
           </div>

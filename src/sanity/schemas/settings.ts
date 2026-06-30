@@ -109,6 +109,13 @@ export default defineType({
       of: [{ type: 'block' }],
     }),
     defineField({
+      name: 'sponsorText',
+      title: 'Testo Bando / Contributi',
+      type: 'text',
+      rows: 3,
+      description: 'Opzionale. Aggiungi il testo obbligatorio per i bandi (es. "Progetto cofinanziato dall\'Unione Europea..."). Apparirà sopra i loghi.',
+    }),
+    defineField({
       name: 'sponsorLogos',
       title: 'Loghi Bandi / Contributi / Sponsor',
       type: 'array',
