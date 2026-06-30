@@ -1,9 +1,12 @@
-import { mockEvents } from "@/lib/mockData";
 import EventCard from "@/components/EventCard";
 import Link from "next/link";
+import { client } from "@/sanity/lib/client";
+import { getEventsByCategoryQuery } from "@/sanity/lib/queries";
 
-export default function TeatroPage() {
-  const teatroEvents = mockEvents.filter((e) => e.categoria === "teatro");
+export const revalidate = 60;
+
+export default async function TeatroPage() {
+  const teatroEvents = await client.fetch(getEventsByCategoryQuery, { category: "teatro" });
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -21,8 +24,8 @@ export default function TeatroPage() {
 
       {teatroEvents.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {teatroEvents.map((event) => (
-            <EventCard key={event.id} event={event} />
+          {teatroEvents.map((event: any) => (
+            <EventCard key={event._id} event={event} />
           ))}
         </div>
       ) : (

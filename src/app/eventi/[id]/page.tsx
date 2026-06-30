@@ -1,16 +1,25 @@
-import { mockEvents } from "@/lib/mockData";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Clock, Calendar, Video, Info } from "lucide-react";
+import { client } from "@/sanity/lib/client";
+import { getEventBySlugQuery } from "@/sanity/lib/queries";
+
+export const revalidate = 60;
 
 export default async function EventDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  // In futuro qui faremo la chiamata a Sanity per prendere il film tramite id
-  const event = mockEvents.find((e) => e.id === id);
+
+  // Fetch dall'API di Sanity tramite lo slug (che usiamo come id nell'URL)
+  const event = await client.fetch(getEventBySlugQuery, { slug: id });
 
   if (!event) {
     notFound();
   }
+
+  // Fallback map per i dati in caso manchino campi
+  const imageUrl = event.imageUrl || "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=800&auto=format&fit=crop";
+  const showtimes = Array.isArray(event.showtimes) ? event.showtimes.join(" - ") : (event.showtimes || "In aggiornamento");
+  const description = event.plot || event.description || "Nessuna descrizione disponibile al momento.";
 
   return (
     <main className="min-h-screen bg-black pt-20">
@@ -18,8 +27,8 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
       <div className="relative h-[50vh] md:h-[60vh] w-full overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src={event.imageUrl}
-            alt={event.titolo}
+            src={imageUrl}
+            alt={event.title}
             className="w-full h-full object-cover opacity-60 blur-[2px]"
           />
           <div className="absolute inset-0 bg-linear-to-t from-black via-black/80 to-transparent" />
@@ -28,8 +37,8 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
         <div className="absolute inset-0 flex flex-col justify-end">
           <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-12 flex flex-col md:flex-row gap-8 items-end">
             {/* Locandina in evidenza */}
-            <div className="hidden md:block shrink-0 w-64 h-96 rounded-2xl overflow-hidden border-4 border-zinc-800 shadow-2xl relative -mb-24 z-10">
-              <img src={event.imageUrl} alt={event.titolo} className="w-full h-full object-cover" />
+            <div className="hidden md:block shrink-0 w-64 h-96 rounded-2xl overflow-hidden border-4 border-zinc-800 shadow-2xl relative -mb-24 z-10 bg-zinc-900">
+              <img src={imageUrl} alt={event.title} className="w-full h-full object-cover" />
             </div>
 
             {/* Titolo e info base */}
@@ -40,22 +49,28 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                   Torna alla programmazione
                 </Link>
                 <div className="uppercase tracking-widest text-xs font-bold text-red-500 mb-2">
-                  {event.categoria}
+                  {event.category}
                 </div>
                 <h1 className="font-heading text-4xl md:text-6xl font-bold text-white mb-4 leading-tight">
-                  {event.titolo}
+                  {event.title}
                 </h1>
               </div>
 
               <div className="flex flex-wrap items-center gap-4 text-sm">
                 <div className="flex items-center text-zinc-300 bg-zinc-900/80 backdrop-blur-xs px-4 py-2 rounded-full border border-zinc-800">
                   <Clock className="w-4 h-4 mr-2 text-red-500" />
-                  Orari: <strong className="ml-1 text-white">{event.orari}</strong>
+                  Orari: <strong className="ml-1 text-white">{showtimes}</strong>
                 </div>
-                {event.regista && (
+                {event.duration && (
+                  <div className="flex items-center text-zinc-300 bg-zinc-900/80 backdrop-blur-xs px-4 py-2 rounded-full border border-zinc-800">
+                    <Calendar className="w-4 h-4 mr-2 text-red-500" />
+                    Durata: <strong className="ml-1 text-white">{event.duration} min</strong>
+                  </div>
+                )}
+                {event.director && (
                   <div className="flex items-center text-zinc-300 bg-zinc-900/80 backdrop-blur-xs px-4 py-2 rounded-full border border-zinc-800">
                     <Info className="w-4 h-4 mr-2 text-red-500" />
-                    Regia: <strong className="ml-1 text-white">{event.regista}</strong>
+                    Regia: <strong className="ml-1 text-white">{event.director}</strong>
                   </div>
                 )}
               </div>
@@ -73,7 +88,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
             <section>
               <h2 className="text-2xl font-bold text-white mb-6 border-b border-zinc-800 pb-4">Trama</h2>
               <div className="prose prose-invert max-w-none text-zinc-300 text-lg leading-relaxed">
-                <p>{event.descrizioneLunga || event.descrizioneBreve}</p>
+                <p className="whitespace-pre-wrap">{description}</p>
               </div>
             </section>
 

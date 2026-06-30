@@ -1,9 +1,12 @@
-import { mockEvents } from "@/lib/mockData";
 import EventCard from "@/components/EventCard";
 import { Search } from "lucide-react";
+import { client } from "@/sanity/lib/client";
+import { getEventsByCategoryQuery } from "@/sanity/lib/queries";
 
-export default function CinemaPage() {
-  const cinemaEvents = mockEvents.filter((e) => e.categoria === "cinema");
+export const revalidate = 60;
+
+export default async function CinemaPage() {
+  const cinemaEvents = await client.fetch(getEventsByCategoryQuery, { category: "cinema" });
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -26,8 +29,8 @@ export default function CinemaPage() {
 
           {cinemaEvents.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {cinemaEvents.map((event) => (
-                <EventCard key={event.id} event={event} />
+              {cinemaEvents.map((event: any) => (
+                <EventCard key={event._id} event={event} />
               ))}
             </div>
           ) : (

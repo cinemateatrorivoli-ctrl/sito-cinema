@@ -1,6 +1,6 @@
-"use client";
-
 import { Phone, MapPin, ExternalLink } from "lucide-react";
+import { client } from "@/sanity/lib/client";
+import { getSettingsQuery } from "@/sanity/lib/queries";
 
 const locations = [
   {
@@ -23,7 +23,10 @@ const locations = [
   }
 ];
 
-export default function MapSection() {
+export default async function MapSection() {
+  const settings = await client.fetch(getSettingsQuery);
+  const phoneNumber = settings?.phoneNumber || "0923 941021";
+
   return (
     <section id="contatti" className="py-24 bg-black border-t border-zinc-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -42,8 +45,8 @@ export default function MapSection() {
             </div>
             <div className="text-left">
               <p className="text-zinc-500 text-xs font-medium uppercase tracking-wider">Info e Prenotazioni</p>
-              <a href="tel:+390923941021" className="text-lg font-bold text-white hover:text-red-500 transition-colors">
-                0923 941021
+              <a href={`tel:${phoneNumber.replace(/\s+/g, '')}`} className="text-lg font-bold text-white hover:text-red-500 transition-colors">
+                {phoneNumber}
               </a>
             </div>
           </div>

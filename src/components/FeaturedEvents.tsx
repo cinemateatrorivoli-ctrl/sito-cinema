@@ -2,10 +2,9 @@
 
 import { useEffect, useRef } from "react";
 import EventCard from "./EventCard";
-import { mockEvents, EventData } from "@/lib/mockData";
 import { Film, Ticket, Moon } from "lucide-react";
 
-function AutoScrollingRow({ title, icon, events }: { title: string, icon: React.ReactNode, events: EventData[] }) {
+function AutoScrollingRow({ title, icon, events }: { title: string, icon: React.ReactNode, events: any[] }) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -46,8 +45,8 @@ function AutoScrollingRow({ title, icon, events }: { title: string, icon: React.
             display: none;
           }
         `}</style>
-        {events.map((event) => (
-          <div key={event.id} className="shrink-0 w-[85vw] sm:w-[350px] md:w-[400px] snap-start">
+        {events.map((event, idx) => (
+          <div key={event._id || event.id || idx} className="shrink-0 w-[85vw] sm:w-[350px] md:w-[400px] snap-start">
             <EventCard event={event} />
           </div>
         ))}
@@ -56,16 +55,26 @@ function AutoScrollingRow({ title, icon, events }: { title: string, icon: React.
   );
 }
 
-export default function FeaturedEvents() {
+export default function FeaturedEvents({ events }: { events: any[] }) {
   // Separiamo gli eventi per categoria
-  const baseCinema = mockEvents.filter(e => e.categoria === "cinema");
-  const baseTeatro = mockEvents.filter(e => e.categoria === "teatro");
-  const baseArena = mockEvents.filter(e => e.categoria === "arena");
+  // Map category to handle both mock ('cinema') and sanity ('cinema') just in case
+  const cinemaEvents = events.filter(e => e.category === "cinema" || e.categoria === "cinema");
+  const teatroEvents = events.filter(e => e.category === "teatro" || e.categoria === "teatro");
+  const arenaEvents = events.filter(e => e.category === "arena" || e.categoria === "arena");
 
-  // Duplichiamo gli eventi solo per dimostrare l'effetto di scorrimento prolungato (essendoci pochi mock data)
-  const cinemaEvents = [...baseCinema, ...baseCinema.map(e => ({ ...e, id: e.id + "_copy" }))];
-  const teatroEvents = [...baseTeatro, ...baseTeatro.map(e => ({ ...e, id: e.id + "_copy" }))];
-  const arenaEvents = [...baseArena, ...baseArena.map(e => ({ ...e, id: e.id + "_copy" }))];
+  // Se non ci sono eventi in nessuna categoria, mostriamo un messaggio
+  if (cinemaEvents.length === 0 && teatroEvents.length === 0 && arenaEvents.length === 0) {
+    return (
+      <section className="py-24 bg-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="font-heading text-4xl font-bold text-white mb-4">Prossimamente</h2>
+          <p className="text-gray-400 text-lg">
+            Il nuovo cartellone è in fase di aggiornamento. Torna a trovarci presto!
+          </p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-24 bg-black">
