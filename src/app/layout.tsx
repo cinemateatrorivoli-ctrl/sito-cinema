@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import CookieBanner from "@/components/CookieBanner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,12 +30,7 @@ export default function RootLayout({
       className={`${inter.variable} ${montserrat.variable} h-full scroll-smooth antialiased bg-black text-gray-200`}
     >
       <body className="min-h-full flex flex-col font-sans">
-        <Header />
-        <main className="grow pt-20">
-          {children}
-        </main>
-        <Footer />
-        <CookieBanner />
+        {children}
       </body>
     </html>
   );
