@@ -21,6 +21,17 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
   const showtimes = Array.isArray(event.showtimes) ? event.showtimes.join(" - ") : (event.showtimes || "In aggiornamento");
   const description = event.plot || event.description || "Nessuna descrizione disponibile al momento.";
 
+  // Funzione per convertire URL YouTube standard (youtu.be o youtube.com/watch) in URL da embed
+  const getYouTubeEmbedUrl = (url: string) => {
+    if (!url) return null;
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11)
+      ? `https://www.youtube.com/embed/${match[2]}`
+      : url;
+  };
+  const embedUrl = event.trailerUrl ? getYouTubeEmbedUrl(event.trailerUrl) : null;
+
   return (
     <main className="min-h-screen bg-black pt-20">
       {/* Intestazione e Immagine Hero */}
@@ -102,7 +113,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
 
           {/* Colonna Destra (Trailer e Azioni) */}
           <div className="space-y-8">
-            {event.trailerUrl && (
+            {embedUrl && (
               <div className="bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800">
                 <div className="bg-zinc-950 px-6 py-4 border-b border-zinc-800 flex items-center">
                   <Video className="w-5 h-5 text-red-500 mr-3" />
@@ -111,7 +122,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                 <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
                   <iframe
                     className="absolute top-0 left-0 w-full h-full"
-                    src={event.trailerUrl}
+                    src={embedUrl}
                     title="Trailer"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
