@@ -121,6 +121,11 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
               </div>
 
               <div className="flex flex-wrap items-center gap-4 text-sm">
+                {event.room && (
+                  <div className={`flex items-center backdrop-blur-xs px-4 py-2 rounded-full border ${event.room === 'Sala Rossa' ? 'bg-red-950/50 border-red-900/50 text-red-200' : event.room === 'Sala Gialla' ? 'bg-yellow-950/50 border-yellow-900/50 text-yellow-200' : 'bg-zinc-900/80 border-zinc-800 text-zinc-300'}`}>
+                    <span className="font-bold">{event.room}</span>
+                  </div>
+                )}
                 <div className="flex items-center text-zinc-300 bg-zinc-900/80 backdrop-blur-xs px-4 py-2 rounded-full border border-zinc-800">
                   <Clock className="w-4 h-4 mr-2 text-red-500" />
                   Orari: <strong className="ml-1 text-white">{showtimes}</strong>

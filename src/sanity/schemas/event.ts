@@ -36,6 +36,19 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'room',
+      title: 'Sala (Solo per Cinema)',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Sala Rossa', value: 'Sala Rossa' },
+          { title: 'Sala Gialla', value: 'Sala Gialla' },
+        ],
+        layout: 'radio'
+      },
+      hidden: ({ document }) => document?.category !== 'cinema',
+    }),
+    defineField({
       name: 'image',
       title: 'Locandina',
       type: 'image',

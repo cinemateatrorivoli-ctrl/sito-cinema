@@ -31,8 +31,15 @@ export default function EventCard({ event }: { event: any }) {
         </div>
 
         <div className="p-6 flex flex-col grow">
-          <div className="mb-2 uppercase tracking-widest text-xs font-bold text-red-500">
-            {category}
+          <div className="mb-2 flex items-center justify-between">
+            <span className="uppercase tracking-widest text-xs font-bold text-red-500">
+              {category}
+            </span>
+            {event.room && (
+              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-sm uppercase tracking-wider ${event.room === 'Sala Rossa' ? 'bg-red-500/20 text-red-400 border border-red-500/30' : event.room === 'Sala Gialla' ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' : 'bg-zinc-800 text-zinc-300'}`}>
+                {event.room}
+              </span>
+            )}
           </div>
           <h3 className="font-heading text-2xl font-bold text-white mb-3 line-clamp-2">
             {title}

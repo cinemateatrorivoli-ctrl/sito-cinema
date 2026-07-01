@@ -8,6 +8,10 @@ export const revalidate = 60;
 export default async function CinemaPage() {
   const cinemaEvents = await client.fetch(getEventsByCategoryQuery, { category: "cinema" });
 
+  const salaRossaEvents = cinemaEvents.filter((e: any) => e.room === 'Sala Rossa');
+  const salaGiallaEvents = cinemaEvents.filter((e: any) => e.room === 'Sala Gialla');
+  const otherEvents = cinemaEvents.filter((e: any) => e.room !== 'Sala Rossa' && e.room !== 'Sala Gialla');
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="flex flex-col mb-12 border-b border-zinc-800 pb-6">
@@ -28,10 +32,47 @@ export default async function CinemaPage() {
           </div>
 
           {cinemaEvents.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {cinemaEvents.map((event: any) => (
-                <EventCard key={event._id} event={event} />
-              ))}
+            <div className="space-y-16">
+              {salaRossaEvents.length > 0 && (
+                <div>
+                  <h3 className="text-2xl font-bold text-red-500 mb-6 flex items-center">
+                    <span className="w-3 h-3 rounded-full bg-red-500 mr-3"></span>
+                    Sala Rossa
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {salaRossaEvents.map((event: any) => (
+                      <EventCard key={event._id} event={event} />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {salaGiallaEvents.length > 0 && (
+                <div>
+                  <h3 className="text-2xl font-bold text-yellow-500 mb-6 flex items-center">
+                    <span className="w-3 h-3 rounded-full bg-yellow-500 mr-3"></span>
+                    Sala Gialla
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {salaGiallaEvents.map((event: any) => (
+                      <EventCard key={event._id} event={event} />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {otherEvents.length > 0 && (
+                <div>
+                  {salaRossaEvents.length > 0 || salaGiallaEvents.length > 0 ? (
+                    <h3 className="text-2xl font-bold text-white mb-6">Altri Film</h3>
+                  ) : null}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {otherEvents.map((event: any) => (
+                      <EventCard key={event._id} event={event} />
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           ) : (
             <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-12 text-center">
