@@ -48,6 +48,14 @@ export default async function MapSection() {
       address = settings?.arenaAddress || address;
       mapUrl = settings?.arenaMapUrl || mapUrl;
     }
+
+    // Sistema automatico per evitare che la mappa si rompa
+    // Se l'utente ha inserito un URL normale invece di quello da incorporare:
+    if (mapUrl && !mapUrl.includes("output=embed") && !mapUrl.includes("embed?pb=")) {
+      // Usiamo l'indirizzo testuale inserito per generare automaticamente l'URL corretto da incorporare
+      mapUrl = `https://maps.google.com/maps?q=${encodeURIComponent(address)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+    }
+
     return { ...loc, hours, address, mapUrl };
   });
 
