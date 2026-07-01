@@ -112,7 +112,7 @@ export default function HeroCarousel({ heroEvents }: { heroEvents?: HeroEvent[] 
 
       <div className="relative z-20 text-center px-4 max-w-4xl mx-auto mt-20 flex flex-col items-center">
         <img
-          src="/LOGO_RIVOLI.png"
+          src="/logo_white.png"
           alt="Cinema Rivoli Logo"
           className="w-48 md:w-64 lg:w-80 mb-8 object-contain drop-shadow-2xl"
         />
