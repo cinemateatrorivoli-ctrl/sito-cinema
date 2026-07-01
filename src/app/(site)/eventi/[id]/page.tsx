@@ -139,7 +139,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                 {event.director && (
                   <div className="flex items-center text-zinc-300 bg-zinc-900/80 backdrop-blur-xs px-4 py-2 rounded-full border border-zinc-800">
                     <Info className="w-4 h-4 mr-2 text-red-500" />
-                    Regia: <strong className="ml-1 text-white">{event.director}</strong>
+                    {event.category === 'cinema' ? 'Regia:' : 'Direzione Artistica:'} <strong className="ml-1 text-white">{event.director}</strong>
                   </div>
                 )}
               </div>
@@ -155,7 +155,9 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
           {/* Colonna Sinistra (Trama e Cast) */}
           <div className="lg:col-span-2 space-y-12">
             <section>
-              <h2 className="text-2xl font-bold text-white mb-6 border-b border-zinc-800 pb-4">Trama</h2>
+              <h2 className="text-2xl font-bold text-white mb-6 border-b border-zinc-800 pb-4">
+                {event.category === 'cinema' ? 'Trama' : 'Programmazione e Dettagli'}
+              </h2>
               <div className="prose prose-invert max-w-none text-zinc-300 text-lg leading-relaxed">
                 {event.plot ? (
                   <PortableText value={event.plot} components={portableTextComponents} />

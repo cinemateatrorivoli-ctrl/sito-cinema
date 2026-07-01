@@ -66,7 +66,7 @@ export default defineType({
     }),
     defineField({
       name: 'plot',
-      title: 'Trama Completa',
+      title: 'Trama / Programmazione Completa',
       type: 'array',
       of: [{ type: 'block' }],
     }),
@@ -79,7 +79,7 @@ export default defineType({
     }),
     defineField({
       name: 'director',
-      title: 'Regista',
+      title: 'Regista / Direttore Artistico',
       type: 'string',
     }),
     defineField({
