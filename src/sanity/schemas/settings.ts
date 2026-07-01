@@ -76,14 +76,44 @@ export default defineType({
       type: 'string',
     }),
     defineField({
+      name: 'cinemaAddress',
+      title: 'Indirizzo Cinema',
+      type: 'string',
+    }),
+    defineField({
+      name: 'cinemaMapUrl',
+      title: 'URL Mappa Cinema (Google Maps Embed)',
+      type: 'url',
+    }),
+    defineField({
       name: 'teatroHours',
       title: 'Orari di Apertura Teatro',
       type: 'string',
     }),
     defineField({
+      name: 'teatroAddress',
+      title: 'Indirizzo Teatro',
+      type: 'string',
+    }),
+    defineField({
+      name: 'teatroMapUrl',
+      title: 'URL Mappa Teatro (Google Maps Embed)',
+      type: 'url',
+    }),
+    defineField({
       name: 'arenaHours',
       title: 'Orari di Apertura Arena',
       type: 'string',
+    }),
+    defineField({
+      name: 'arenaAddress',
+      title: 'Indirizzo Arena',
+      type: 'string',
+    }),
+    defineField({
+      name: 'arenaMapUrl',
+      title: 'URL Mappa Arena (Google Maps Embed)',
+      type: 'url',
     }),
     defineField({
       name: 'heroEvents',

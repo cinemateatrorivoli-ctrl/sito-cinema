@@ -27,13 +27,28 @@ export default async function MapSection() {
   const settings = await client.fetch(getSettingsQuery);
   const phoneNumber = settings?.phoneNumber || "0923 941021";
 
-  // Associamo dinamicamente gli orari alle sedi in base ai dati di Sanity
+  // Associamo dinamicamente gli orari e gli indirizzi alle sedi in base ai dati di Sanity
   const locationsWithHours = locations.map(loc => {
     let hours = "In aggiornamento";
-    if (loc.id === "cinema") hours = settings?.cinemaHours || hours;
-    if (loc.id === "teatro") hours = settings?.teatroHours || hours;
-    if (loc.id === "arena") hours = settings?.arenaHours || hours;
-    return { ...loc, hours };
+    let address = loc.address;
+    let mapUrl = loc.mapUrl;
+
+    if (loc.id === "cinema") {
+      hours = settings?.cinemaHours || hours;
+      address = settings?.cinemaAddress || address;
+      mapUrl = settings?.cinemaMapUrl || mapUrl;
+    }
+    if (loc.id === "teatro") {
+      hours = settings?.teatroHours || hours;
+      address = settings?.teatroAddress || address;
+      mapUrl = settings?.teatroMapUrl || mapUrl;
+    }
+    if (loc.id === "arena") {
+      hours = settings?.arenaHours || hours;
+      address = settings?.arenaAddress || address;
+      mapUrl = settings?.arenaMapUrl || mapUrl;
+    }
+    return { ...loc, hours, address, mapUrl };
   });
 
   return (
