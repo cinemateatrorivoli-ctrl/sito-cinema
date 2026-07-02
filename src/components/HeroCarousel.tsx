@@ -39,7 +39,7 @@ export default function HeroCarousel({ heroEvents }: { heroEvents?: HeroEvent[] 
 
   if (hasHeroEvents) {
     return (
-      <section className="relative h-[80vh] flex items-center justify-center overflow-hidden bg-black">
+      <section className="relative min-h-[80vh] py-24 flex items-center justify-center overflow-hidden bg-black">
         <div className="absolute inset-0 z-0">
           <AnimatePresence mode="wait">
             <motion.img
@@ -56,7 +56,7 @@ export default function HeroCarousel({ heroEvents }: { heroEvents?: HeroEvent[] 
           <div className="absolute inset-0 bg-linear-to-b from-black/20 via-black/60 to-black z-10" />
         </div>
 
-        <div className="relative z-20 px-4 max-w-6xl mx-auto w-full flex flex-col items-center md:items-start text-center md:text-left mt-20">
+        <div className="relative z-20 px-4 max-w-6xl mx-auto w-full flex flex-col items-center md:items-start text-center md:text-left">
           <div className="inline-block px-4 py-1.5 bg-red-600/90 text-white text-sm font-bold uppercase tracking-widest rounded-full mb-6 backdrop-blur-md">
             In Evidenza
           </div>
@@ -93,7 +93,7 @@ export default function HeroCarousel({ heroEvents }: { heroEvents?: HeroEvent[] 
   }
 
   return (
-    <section className="relative h-[80vh] flex items-center justify-center overflow-hidden bg-black">
+    <section className="relative min-h-[80vh] py-24 flex items-center justify-center overflow-hidden bg-black">
       <div className="absolute inset-0 z-0">
         <AnimatePresence mode="wait">
           <motion.img
@@ -110,7 +110,7 @@ export default function HeroCarousel({ heroEvents }: { heroEvents?: HeroEvent[] 
         <div className="absolute inset-0 bg-linear-to-b from-black/40 via-black/10 to-black z-10" />
       </div>
 
-      <div className="relative z-20 text-center px-4 max-w-4xl mx-auto mt-20 flex flex-col items-center">
+      <div className="relative z-20 text-center px-4 max-w-4xl mx-auto flex flex-col items-center">
         <img
           src="/logo_white.png"
           alt="Cinema Rivoli Logo"

@@ -107,7 +107,7 @@ export default async function Footer() {
               <li>
                 <Link href="/cookie-policy" className="hover:text-white transition-colors">Cookie Policy</Link>
               </li>
-              {((settings?.sponsorLogos && settings.sponsorLogos.length > 0) || settings?.sponsorText) && (
+              {((settings?.sponsorLogos && settings.sponsorLogos.length > 0) || (settings?.sponsorTexts && settings.sponsorTexts.length > 0)) && (
                 <li>
                   <Link href="/contributi" className="hover:text-white transition-colors">Bandi e Contributi Pubblici</Link>
                 </li>

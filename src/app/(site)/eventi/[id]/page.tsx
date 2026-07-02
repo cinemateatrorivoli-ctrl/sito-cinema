@@ -88,8 +88,8 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
   return (
     <main className="min-h-screen bg-black pt-20">
       {/* Intestazione e Immagine Hero */}
-      <div className="relative h-[50vh] md:h-[60vh] w-full overflow-hidden">
-        <div className="absolute inset-0">
+      <div className="relative min-h-[50vh] md:min-h-[60vh] w-full overflow-hidden flex flex-col justify-end">
+        <div className="absolute inset-0 z-0">
           <img
             src={imageUrl}
             alt={event.title}
@@ -98,7 +98,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
           <div className="absolute inset-0 bg-linear-to-t from-black via-black/80 to-transparent" />
         </div>
 
-        <div className="absolute inset-0 flex flex-col justify-end">
+        <div className="relative z-10 w-full pt-20">
           <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-12 flex flex-col md:flex-row gap-8 items-end">
             {/* Locandina in evidenza */}
             <div className="hidden md:block shrink-0 w-64 h-96 rounded-2xl overflow-hidden border-4 border-zinc-800 shadow-2xl relative -mb-24 z-10 bg-zinc-900">

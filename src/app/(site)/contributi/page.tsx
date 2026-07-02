@@ -24,9 +24,13 @@ export default async function ContributiPage() {
       </div>
 
       <div className="bg-zinc-900/50 border border-zinc-800 rounded-xl p-8 md:p-12 text-center flex flex-col items-center justify-center gap-8">
-        {settings?.sponsorText ? (
-          <div className="text-zinc-300 text-lg leading-relaxed max-w-2xl prose prose-invert">
-            {settings.sponsorText}
+        {settings?.sponsorTexts && settings.sponsorTexts.length > 0 ? (
+          <div className="flex flex-col gap-6 w-full max-w-3xl text-left">
+            {settings.sponsorTexts.map((text: string, idx: number) => (
+              <div key={idx} className="bg-zinc-950/50 p-6 rounded-xl border border-zinc-800 text-zinc-300 text-lg leading-relaxed prose prose-invert w-full">
+                {text}
+              </div>
+            ))}
           </div>
         ) : (
           <p className="text-zinc-500 italic">Nessuna informazione presente al momento.</p>
