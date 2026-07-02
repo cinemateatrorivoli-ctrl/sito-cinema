@@ -6,7 +6,7 @@ import { getEventsByCategoryQuery } from "@/sanity/lib/queries";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Arena Estiva | Cinema Teatro Rivoli",
+  title: "Arena | Cinema Teatro Rivoli",
   description: "Cinema all'aperto, concerti ed eventi speciali sotto il cielo stellato dell'Arena Rivoli a Mazara del Vallo.",
 };
 
@@ -23,7 +23,7 @@ export default async function ArenaPage() {
             Arena
           </h1>
           <p className="text-gray-400 text-lg max-w-2xl">
-            Cinema all'aperto, concerti ed eventi speciali sotto il cielo stellato. La magia dell'estate ti aspetta.
+            Cinema all'aperto, concerti ed eventi speciali sotto il cielo stellato. Un'atmosfera magica ti aspetta.
           </p>
         </div>
 
@@ -39,7 +39,7 @@ export default async function ArenaPage() {
         <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-12 text-center">
           <h2 className="text-2xl font-bold text-white mb-4">Nessun evento in programma</h2>
           <p className="text-zinc-400 text-lg">
-            Attualmente l'Arena è chiusa o non ci sono eventi caricati. Torna a visitarci all'arrivo della bella stagione!
+            Attualmente non ci sono eventi in programma nell'Arena. Torna presto a visitarci per scoprire i prossimi appuntamenti!
           </p>
         </div>
       )}
