@@ -3,6 +3,13 @@ import { Search } from "lucide-react";
 import { client } from "@/sanity/lib/client";
 import { getEventsByCategoryQuery } from "@/sanity/lib/queries";
 
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Cinema | Cinema Teatro Rivoli",
+  description: "Scopri i film in sala questa settimana o cerca le prossime uscite in arrivo al Cinema Rivoli di Mazara del Vallo.",
+};
+
 export const revalidate = 60;
 
 export default async function CinemaPage() {

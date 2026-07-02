@@ -3,6 +3,13 @@ import Link from "next/link";
 import { client } from "@/sanity/lib/client";
 import { getEventsByCategoryQuery } from "@/sanity/lib/queries";
 
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Arena Estiva | Cinema Teatro Rivoli",
+  description: "Cinema all'aperto, concerti ed eventi speciali sotto il cielo stellato dell'Arena Rivoli a Mazara del Vallo.",
+};
+
 export const revalidate = 60;
 
 export default async function ArenaPage() {

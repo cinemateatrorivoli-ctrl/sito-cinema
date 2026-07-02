@@ -3,6 +3,13 @@ import Link from "next/link";
 import { client } from "@/sanity/lib/client";
 import { getEventsByCategoryQuery } from "@/sanity/lib/queries";
 
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Teatro | Cinema Teatro Rivoli",
+  description: "Dai classici della prosa alle commedie contemporanee, esplora il nostro cartellone teatrale a Mazara del Vallo.",
+};
+
 export const revalidate = 60;
 
 export default async function TeatroPage() {
