@@ -85,8 +85,32 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
   };
   const embedUrl = event.trailerUrl ? getYouTubeEmbedUrl(event.trailerUrl) : null;
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': event.category === 'cinema' ? 'ScreeningEvent' : 'Event',
+    name: event.title,
+    description: description,
+    image: imageUrl,
+    location: {
+      '@type': 'MovieTheater',
+      name: 'Cinema Teatro Rivoli',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Via Nicolo Tortorici, 6',
+        addressLocality: 'Mazara del Vallo',
+        addressRegion: 'TP',
+        postalCode: '91026',
+        addressCountry: 'IT'
+      }
+    }
+  };
+
   return (
     <main className="min-h-screen bg-black pt-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Intestazione e Immagine Hero */}
       <div className="relative min-h-[50vh] md:min-h-[60vh] w-full overflow-hidden flex flex-col justify-end">
         <div className="absolute inset-0 z-0">

@@ -15,14 +15,14 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://sito-cinema.vercel.app'),
-  title: "Cinema Rivoli - Multisala, Teatro e Arena",
-  description: "Il tuo multisala di fiducia a Rivoli. Scopri la programmazione di Cinema, Teatro e Arena.",
+  metadataBase: new URL('https://cineteatrorivoli.it'),
+  title: "Cinema Teatro Rivoli - Multisala e Arena a Mazara del Vallo",
+  description: "Il tuo multisala di fiducia a Mazara del Vallo. Scopri la programmazione di Cinema, Teatro e Arena.",
   openGraph: {
-    title: "Cinema Rivoli - Multisala, Teatro e Arena",
-    description: "Il tuo multisala di fiducia a Rivoli. Scopri la programmazione di Cinema, Teatro e Arena.",
-    url: 'https://sito-cinema.vercel.app',
-    siteName: 'Cinema Rivoli',
+    title: "Cinema Teatro Rivoli - Multisala e Arena a Mazara del Vallo",
+    description: "Il tuo multisala di fiducia a Mazara del Vallo. Scopri la programmazione di Cinema, Teatro e Arena.",
+    url: 'https://cineteatrorivoli.it',
+    siteName: 'Cinema Teatro Rivoli',
     locale: 'it_IT',
     type: 'website',
   },
